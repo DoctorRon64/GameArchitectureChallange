@@ -17,10 +17,7 @@ public class moveState : State
 
 	public override void OnUpdate()
 	{
-		if (Vector2.Distance(transform.position, targetPosition) < approchDistance)
-		{
 
-		}
 	}
 
 	public override void OnExit()
