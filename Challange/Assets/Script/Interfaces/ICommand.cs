@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ICommand
 {
-    public void Execute(GameObject actor);
+    public void Execute();
 }

@@ -7,12 +7,13 @@ public class Player : ActorBase
 	Rigidbody2D rb2d;
 	[SerializeField] private float linearDrag = 2.0f;
 	[SerializeField] private float angularDrag = 2.0f;
-	List<ICommand> commands = new List<ICommand>();
+    List<ICommand> commands = new List<ICommand>();
 
-	private void Awake()
+    private void Awake()
 	{
 		commands.Add(new FireGunCommand());
-		rb2d = GetComponent<Rigidbody2D>();
+
+        rb2d = GetComponent<Rigidbody2D>();
 		rb2d.drag = linearDrag;
 		rb2d.angularDrag = angularDrag;
 		speed = 10f;
@@ -25,14 +26,14 @@ public class Player : ActorBase
 
 	private void Update()
 	{
-		Attack();
-	}
+        Attack();
+    }
 
-	protected override void Attack()
+    protected override void Attack()
 	{
 		InputHandler inputHandler = new InputHandler(commands);
-		ICommand command = inputHandler.HandleInpute();
-		command.Execute(gameObject);
+		ICommand command = inputHandler.HandleInput();
+		command.Execute();
 	}
 
 	protected override void move()
@@ -53,8 +54,10 @@ public class FireGunCommand : MonoBehaviour, ICommand
 	{
 		BulletPool = new ObjectPool<Bullet>();
 	}
-	public void Execute(GameObject actor)
+	public void Execute()
 	{
+		Debug.Log("fire");
+
 		FireGun();
 	}
 

@@ -4,26 +4,39 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    private List<ICommand> allKeyCommands = new List<ICommand>();
-    [SerializeField] private List<KeyCode> keys = new List<KeyCode>();
+    [SerializeField] private List<KeyCommand> allKeyCommands = new List<KeyCommand>();
+    private List<ICommand> commandList = new List<ICommand>();
 
-    public InputHandler(List<ICommand> _commands)
+    public InputHandler(List<ICommand> _commandList)
     {
-        for (int i = 0; i < _commands.Count; i++)
-        {
-            this.allKeyCommands[i] = _commands[i];
-        }
+        this.commandList = _commandList;
     }
 
-    public ICommand HandleInpute()
+    public ICommand HandleInput()
     {
-        for (int i =0; i < allKeyCommands.Count;)
+        foreach (KeyCommand keyCommand in allKeyCommands)
         {
-			if (Input.GetKeyDown(keys[i]))
-			{
-				return allKeyCommands[i];
-			}
-		}
+            if (Input.GetKeyDown(keyCommand.key))
+            {
+                keyCommand.command.Execute();
+            }
+        }
+        
         return null;
+    }
+
+    public void BindInputToCommand(KeyCode _keycode, ICommand _command)
+    {
+        allKeyCommands.Add(new KeyCommand()
+        {
+            key = _keycode,
+            command = _command
+        });
+    }
+
+    public void UnBindInput(KeyCode _keycode)
+    {
+        var items = allKeyCommands.FindAll(x => x.key == _keycode);
+        items.ForEach(x => allKeyCommands.Remove(x));
     }
 }
