@@ -23,6 +23,11 @@ public class Player : ActorBase
 		move();
 	}
 
+	private void Update()
+	{
+		Attack();
+	}
+
 	protected override void Attack()
 	{
 		InputHandler inputHandler = new InputHandler(commands);
@@ -42,13 +47,24 @@ public class Player : ActorBase
 
 public class FireGunCommand : MonoBehaviour, ICommand
 {
+	ObjectPool<Bullet> BulletPool;
+	
+	void Awake()
+	{
+		BulletPool = new ObjectPool<Bullet>();
+	}
 	public void Execute(GameObject actor)
 	{
 		FireGun();
 	}
-	
-	void FireGun()
-	{
 
+	private void FireGun()
+	{
+		Bullet bullet = BulletPool.RequestObject();
+	}
+
+	public void OnBulletFired(Bullet bullet)
+	{
+		BulletPool.ReturnObjectToPool(bullet);
 	}
 }

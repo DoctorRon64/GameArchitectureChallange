@@ -1158,6 +1158,18 @@ PrefabInstance:
       propertyPath: angularDrag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8950017439701660794, guid: 1ac3846ffa16c8348a6315a2e5455ba1, type: 3}
+      propertyPath: keys.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950017439701660794, guid: 1ac3846ffa16c8348a6315a2e5455ba1, type: 3}
+      propertyPath: keys.Array.data[0]
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950017439701660794, guid: 1ac3846ffa16c8348a6315a2e5455ba1, type: 3}
+      propertyPath: keys.Array.data[1]
+      value: 118
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ac3846ffa16c8348a6315a2e5455ba1, type: 3}
 --- !u!1001 &1823279564
