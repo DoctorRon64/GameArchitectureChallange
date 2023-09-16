@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : ActorBase
@@ -7,13 +8,27 @@ public class Player : ActorBase
 	Rigidbody2D rb2d;
 	[SerializeField] private float linearDrag = 2.0f;
 	[SerializeField] private float angularDrag = 2.0f;
-    List<ICommand> commands = new List<ICommand>();
 
-    private void Awake()
+	private InputHandler inputHandler;
+	private List<ICommand> commandsInput = new List<ICommand>();
+    [SerializeField] private List<KeyCode> keysInput;
+
+	private void Awake()
 	{
-		commands.Add(new FireGunCommand());
+		inputHandler = GetComponent<InputHandler>();
+		
+		//finds all commands on player
+        ICommand[] foundCommands = GetComponents<ICommand>();
+        commandsInput.AddRange(foundCommands);
 
-        rb2d = GetComponent<Rigidbody2D>();
+        //Automatically binded to inputHandler
+        for (int i = 0; i < commandsInput.Count; i++)
+		{
+			inputHandler.BindInputToCommand(keysInput[i], commandsInput[i]);
+		}
+
+		//setting speed variables
+		rb2d = GetComponent<Rigidbody2D>();
 		rb2d.drag = linearDrag;
 		rb2d.angularDrag = angularDrag;
 		speed = 10f;
@@ -26,14 +41,12 @@ public class Player : ActorBase
 
 	private void Update()
 	{
-        Attack();
-    }
+		Attack();
+	}
 
-    protected override void Attack()
+	protected override void Attack()
 	{
-		InputHandler inputHandler = new InputHandler(commands);
-		ICommand command = inputHandler.HandleInput();
-		command.Execute();
+		inputHandler.HandleInput();
 	}
 
 	protected override void move()
@@ -43,31 +56,5 @@ public class Player : ActorBase
 
 		Vector2 movement = new Vector2(horizontalInput, verticalInput);
 		rb2d.AddForce(movement * speed);
-	}
-}
-
-public class FireGunCommand : MonoBehaviour, ICommand
-{
-	ObjectPool<Bullet> BulletPool;
-	
-	void Awake()
-	{
-		BulletPool = new ObjectPool<Bullet>();
-	}
-	public void Execute()
-	{
-		Debug.Log("fire");
-
-		FireGun();
-	}
-
-	private void FireGun()
-	{
-		Bullet bullet = BulletPool.RequestObject();
-	}
-
-	public void OnBulletFired(Bullet bullet)
-	{
-		BulletPool.ReturnObjectToPool(bullet);
 	}
 }
