@@ -2,23 +2,31 @@
 
 public class FireGunCommand : MonoBehaviour, ICommand
 {
-	//ObjectPool<Bullet> BulletPool;
-	//BulletPool = new ObjectPool<Bullet>();
+	public ObjectPool<Bullet> BulletPool;
+    [SerializeField] private GameObject bulletPrefab;
 
-	public void Execute()
+    private void Awake()
+    {
+        BulletPool = new ObjectPool<Bullet>(bulletPrefab);
+    }
+
+    public void Execute()
 	{
 		Debug.Log("fire");
 
-		//FireGun();
+		FireGun();
 	}
 
-	/*private void FireGun()
+	private void FireGun()
 	{
-		Bullet bullet = BulletPool.RequestObject();
-	}
+		Bullet bullet = Instantiate(bulletPrefab).GetComponent<Bullet>();
+		bullet = BulletPool.RequestObject();
+		
+		//OnBulletFired(bullet);
+    }
 
 	public void OnBulletFired(Bullet bullet)
 	{
 		BulletPool.ReturnObjectToPool(bullet);
-	}*/
+	}
 }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private Vector2 endArea = Vector2.zero;
 	[SerializeField] private float stepsAmount = 1f;
 
-	private void Awake()
+    private void Awake()
 	{
 		emptySpanwer.transform.position = startArea;
 

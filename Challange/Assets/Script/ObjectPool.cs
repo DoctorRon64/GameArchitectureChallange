@@ -7,6 +7,12 @@ public class ObjectPool<T> where T : IPoolabe
 {
     private List<T> activePool = new List<T>();
     private List<T> inactivePool = new List<T>();
+    private GameObject prefabIndividual;
+
+    public ObjectPool(GameObject prefab)
+    {
+        this.prefabIndividual = prefab;
+    }
 
     private T AddNewItemToObjectPool()
     {
@@ -22,6 +28,9 @@ public class ObjectPool<T> where T : IPoolabe
         if (inactivePool.Contains(item))
         {
             inactivePool.Remove(item);
+        } else
+        {
+            item = UnityEngine.Object.Instantiate(prefabIndividual).GetComponent<T>();
         }
         activePool.Add(item);
         return item;
@@ -46,6 +55,4 @@ public class ObjectPool<T> where T : IPoolabe
         }
         return ActivateItem(AddNewItemToObjectPool());
     }
-
-
 }

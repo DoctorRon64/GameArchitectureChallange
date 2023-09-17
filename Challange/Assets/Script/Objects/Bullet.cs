@@ -6,13 +6,16 @@ public class Bullet : MonoBehaviour, IPoolabe
 {
 	public bool Active {  get; set; }
 
-	public void OnEnableObject()
+
+    public void OnEnableObject()
 	{
-		Debug.Log("bULLET ENABLE");
+		gameObject.SetActive(true);
+        Debug.Log("bULLET ENABLE");
 	}
 
 	public void OnDisableObject()
 	{
-		Debug.Log("Bullet fired");
+        gameObject.SetActive(false);
+        Debug.Log("Bullet fired");
 	}
 }
