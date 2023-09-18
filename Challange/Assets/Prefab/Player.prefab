@@ -116,7 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56624e3cf62cc3d42abef9f44db6d35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allKeyCommands: []
 --- !u!114 &5941448208036224335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a382080c6fb6c84a930991d210d90e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4493886300388897700, guid: 22ba3e9cc014d14419e90187945ecbbd, type: 3}
+  bulletAmount: 10
 --- !u!50 &8050156404933415135
 Rigidbody2D:
   serializedVersion: 4

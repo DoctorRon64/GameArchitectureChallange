@@ -1,21 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IPoolabe
 {
-	public bool Active {  get; set; }
+    private float speed = 15f;
+    private Rigidbody2D rb;
 
+    public bool Active { get; set; }
+    public event Action<GameObject> BulletCollision;
 
-    public void OnEnableObject()
-	{
-		gameObject.SetActive(true);
-        Debug.Log("bULLET ENABLE");
-	}
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-	public void OnDisableObject()
-	{
-        gameObject.SetActive(false);
-        Debug.Log("Bullet fired");
-	}
+    public void Fire(Vector2 direction)
+    {
+        rb.velocity = direction * speed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<IDamagable>() != null)
+        {
+            BulletCollision?.Invoke(gameObject);
+        }
+    }
 }
