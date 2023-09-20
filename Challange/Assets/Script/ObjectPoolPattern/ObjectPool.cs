@@ -14,6 +14,7 @@ public class ObjectPool<T> where T : IPoolabe
         inactivePool.Add(instance);
         return instance;
     }
+
     public T RequestObject()
     {
         if (inactivePool.Count > 0)
@@ -25,7 +26,7 @@ public class ObjectPool<T> where T : IPoolabe
 
     public T ActivateItem(T item)
     {
-        //item.OnEnableObject();
+        item.EnablePoolabe();
         item.Active = true;
         if (inactivePool.Contains(item))
         {
@@ -37,11 +38,11 @@ public class ObjectPool<T> where T : IPoolabe
 
     public void ReturnObjectToPool(T item)
     {
+        item.DisablePoolabe();
         if (activePool.Contains(item))
         {
             activePool.Remove(item);
         }
-        //item.OnDisableObject();
         item.Active = false;
         inactivePool.Add(item);
     }

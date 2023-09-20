@@ -3,45 +3,42 @@ using UnityEngine;
 
 public class FireGunCommand : MonoBehaviour, ICommand
 {
-	public GameObjectPool ObjectPool;
+	public GameObjectPool<Bullet> BulletObjectPool;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private int maxBulletCount = 5;
-    [SerializeField] private int bulletAmount;
 
     private void Awake()
     {
-        ObjectPool = new GameObjectPool(bulletPrefab);
+        BulletObjectPool = new GameObjectPool<Bullet>();
 
-        for (int i = 0; i < bulletAmount; i++)
-        {
-            GameObject bullet = ObjectPool.RequestObject();
-            bullet.GetComponent<Bullet>().BulletCollision += OnBulletCollision;
-        }
-    }
+		for (int i = 0; i < maxBulletCount; i++)
+		{
+            GameObject newObject = Instantiate(bulletPrefab);
+			Bullet bulletComponent = newObject.GetComponent<Bullet>();
+            BulletObjectPool.DeactivateItem(bulletComponent);
+
+		    bulletComponent.OnBulletCollision += BulletCollision;
+		}
+	}
 
     public void Execute()
     {
-        if (bulletAmount < maxBulletCount)
-        {
-            FireGun();
-        }
-    }
+		FireGun();
+	}
 
-    private void FireGun()
+	private void FireGun()
     {
-        GameObject bullet = ObjectPool.RequestObject();
+        Bullet bullet = BulletObjectPool.RequestObject(new Vector2(transform.position.x + Random.Range(-1f, 3f), transform.position.y + Random.Range(-1f, 3f)));
+
         if (bullet != null)
         {
-            bullet.SetActive(true);
-            bulletAmount++;
-            FlyBullet(bullet);
+            FlyBullet(bullet.gameObject);
         }
     }
 
-    private void OnBulletCollision(GameObject bullet)
+    private void BulletCollision(Bullet _bullet)
     {
-        ObjectPool.ReturnObjectToPool(bullet);
-        bulletAmount--;
+        BulletObjectPool.DeactivateItem(_bullet);
     }
 
     private void FlyBullet(GameObject _bullet)

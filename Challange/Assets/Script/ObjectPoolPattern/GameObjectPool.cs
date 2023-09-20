@@ -1,52 +1,38 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class GameObjectPool
+public class GameObjectPool<T> where T : IPoolabe
 {
-    private List<GameObject> activePool = new List<GameObject>();
-    private List<GameObject> inactivePool = new List<GameObject>();
-    private GameObject prefab;
+    private List<T> activePool = new List<T>();
+    private List<T> inactivePool = new List<T>();
 
-    public GameObjectPool(GameObject prefab)
+    public T RequestObject(Vector2 _pos)
     {
-        this.prefab = prefab;
+        T curPool = inactivePool[0];
+        ActivateItem(curPool);
+        curPool.SetPosition(_pos);
+        return curPool;
     }
 
-    private GameObject AddNewItemToObjectPool()
+    public void ActivateItem(T item)
     {
-        GameObject instance = Object.Instantiate(prefab);
-        instance.SetActive(false);
-        inactivePool.Add(instance);
-        return instance;
-    }
-
-    public GameObject RequestObject()
-    {
-        if (inactivePool.Count > 0)
-        {
-            return ActivateItem(inactivePool[0]);
-        }
-        return ActivateItem(AddNewItemToObjectPool());
-    }
-
-    public GameObject ActivateItem(GameObject item)
-    {
-        item.SetActive(true);
+        item.EnablePoolabe();
         if (inactivePool.Contains(item))
         {
             inactivePool.Remove(item);
         }
         activePool.Add(item);
-        return item;
     }
 
-    public void ReturnObjectToPool(GameObject item)
+    public void DeactivateItem(T item)
     {
+        item.DisablePoolabe();
         if (activePool.Contains(item))
         {
             activePool.Remove(item);
         }
-        item.SetActive(false);
         inactivePool.Add(item);
     }
 }

@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
     {
         foreach (var _keyCommand in allKeyCommands)
         {
-            if (Input.GetKeyDown(_keyCommand.Key))
+            if (Input.GetKey(_keyCommand.Key))
             {
                 _keyCommand.Value.Execute();
             }

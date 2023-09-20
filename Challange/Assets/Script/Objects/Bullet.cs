@@ -8,7 +8,9 @@ public class Bullet : MonoBehaviour, IPoolabe
     private Rigidbody2D rb;
 
     public bool Active { get; set; }
-    public event Action<GameObject> BulletCollision;
+
+    public delegate void BulletCollision(Bullet _bullet);
+	public event BulletCollision OnBulletCollision;
 
     private void Awake()
     {
@@ -24,7 +26,22 @@ public class Bullet : MonoBehaviour, IPoolabe
     {
         if (collision.gameObject.GetComponent<IDamagable>() != null)
         {
-            BulletCollision?.Invoke(gameObject);
+			OnBulletCollision?.Invoke(this);
         }
+    }
+
+	public void DisablePoolabe()
+	{
+        gameObject.SetActive(false);
+	}
+
+	public void EnablePoolabe()
+	{
+        gameObject.SetActive(true);
+	}
+
+    public void SetPosition(Vector2 _pos)
+    {
+        transform.position = _pos;
     }
 }
