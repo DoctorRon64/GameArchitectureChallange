@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class FireGunCommand : MonoBehaviour, ICommand
 {
-	public GameObjectPool<Bullet> BulletObjectPool;
+	public ObjectPool<Bullet> BulletObjectPool;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private int maxBulletCount = 5;
 
     private void Awake()
     {
-        BulletObjectPool = new GameObjectPool<Bullet>();
+        BulletObjectPool = new ObjectPool<Bullet>();
 
 		for (int i = 0; i < maxBulletCount; i++)
 		{

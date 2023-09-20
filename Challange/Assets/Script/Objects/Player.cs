@@ -54,7 +54,12 @@ public class Player : ActorBase
 		float horizontalInput = Input.GetAxis("Horizontal");
 		float verticalInput = Input.GetAxis("Vertical");
 
-		Vector2 movement = new Vector2(horizontalInput, verticalInput);
-		rb2d.AddForce(movement * speed);
+		//Vector2 movement = new Vector2(horizontalInput, verticalInput);
+		//rb2d.AddForce(movement * speed);
+
+		Vector2 movement = new Vector2(horizontalInput, verticalInput).normalized * speed;
+		rb2d.velocity = movement;
+
+		
 	}
 }
