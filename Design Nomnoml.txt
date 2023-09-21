@@ -82,7 +82,6 @@ FlyBullet();
 ]
 
 [Player] --> [ICommand]
-
 [InputHandler] --> 0..* [ICommand]
 [FireGunCommand] --> [ICommand]
 [FireGunCommand] +- [Bullet]
@@ -90,10 +89,10 @@ FlyBullet();
 [Player] +- [InputHandler]
 [Player] -:> [ActorBase]
 
-[ActorBase] --> [IDamagable]
-[Wall] --> [IDamagable]
-[Bullet] --> [IDamagable]
-[Bullet] --> [IPoolable]
+[ActorBase] --:> [IDamagable]
+[Wall] --:> [IDamagable]
+[Bullet] --:> [IDamagable]
+[Bullet] --:> [IPoolable]
 
 
 
