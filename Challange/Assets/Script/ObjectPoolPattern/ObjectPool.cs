@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class ObjectPool<T> where T : IPoolabe
+public class ObjectPool<T> where T : IPoolable
 {
     private List<T> activePool = new List<T>();
     private List<T> inactivePool = new List<T>();

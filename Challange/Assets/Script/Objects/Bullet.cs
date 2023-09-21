@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IPoolabe
+public class Bullet : MonoBehaviour, IPoolable
 {
     private float speed = 15f;
     private Rigidbody2D rb;

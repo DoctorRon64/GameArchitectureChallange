@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
 	{
+		//KIJK HIER AUB NIET NAAR DIT WAS EEN QUICK PROTOTYPE IK WIL HIER LATER EEN BETER DESIGN VOOR MAKEN
+
 		emptySpanwer.transform.position = startArea;
 
 		for (int i = 0; i < 100; i++)
