@@ -17,17 +17,14 @@ public class Player : ActorBase
 	{
 		inputHandler = GetComponent<InputHandler>();
 		
-		//finds all commands on player
         ICommand[] foundCommands = GetComponents<ICommand>();
         commandsInput.AddRange(foundCommands);
 
-        //Automatically binded to inputHandler
         for (int i = 0; i < commandsInput.Count; i++)
 		{
 			inputHandler.BindInputToCommand(keysInput[i], commandsInput[i]);
 		}
 
-		//setting speed variables
 		rb2d = GetComponent<Rigidbody2D>();
 		rb2d.drag = linearDrag;
 		rb2d.angularDrag = angularDrag;
@@ -53,13 +50,7 @@ public class Player : ActorBase
 	{
 		float horizontalInput = Input.GetAxis("Horizontal");
 		float verticalInput = Input.GetAxis("Vertical");
-
-		//Vector2 movement = new Vector2(horizontalInput, verticalInput);
-		//rb2d.AddForce(movement * speed);
-
 		Vector2 movement = new Vector2(horizontalInput, verticalInput).normalized * speed;
 		rb2d.velocity = movement;
-
-		
 	}
 }

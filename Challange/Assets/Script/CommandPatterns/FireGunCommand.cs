@@ -17,8 +17,9 @@ public class FireGunCommand : MonoBehaviour, ICommand
 			Bullet bulletComponent = newObject.GetComponent<Bullet>();
             BulletObjectPool.DeactivateItem(bulletComponent);
 
+            //subscribing to bullet event
 		    bulletComponent.OnBulletCollision += BulletCollision;
-		}
+        }
 	}
 
     public void Execute()

@@ -37,8 +37,8 @@ public abstract class State
         this.owner = _owner;
     }
 
-    public abstract void OnEnter();
-	public abstract void OnUpdate();
-    public abstract void OnExit();
+    public virtual void OnEnter() { }
+	public virtual void OnUpdate() { }
+    public virtual void OnExit() { }
 }
 

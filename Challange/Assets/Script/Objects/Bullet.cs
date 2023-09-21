@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour, IPoolabe
     {
         if (collision.gameObject.GetComponent<IDamagable>() != null)
         {
+            //Invoking Event
 			OnBulletCollision?.Invoke(this);
         }
     }

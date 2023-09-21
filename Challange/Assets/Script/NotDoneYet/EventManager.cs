@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum EventType
 {
-    OnEnemyKilled = 0
+    OnBulletDied = 0
 }
 
 public static class EventManager
