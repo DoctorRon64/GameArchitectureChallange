@@ -18,7 +18,7 @@ public class FireGunCommand : MonoBehaviour, ICommand
             BulletObjectPool.DeactivateItem(bulletComponent);
 
             //subscribing to bullet event
-		    bulletComponent.OnBulletCollision += BulletCollision;
+		    bulletComponent.OnBulletCollision += deactivateBullet;
         }
 	}
 
@@ -37,7 +37,7 @@ public class FireGunCommand : MonoBehaviour, ICommand
         }
     }
 
-    private void BulletCollision(Bullet _bullet)
+    private void deactivateBullet(Bullet _bullet)
     {
         BulletObjectPool.DeactivateItem(_bullet);
     }
