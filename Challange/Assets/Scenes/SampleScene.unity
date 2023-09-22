@@ -1472,7 +1472,7 @@ PrefabInstance:
       objectReference: {fileID: 4493886300388897700, guid: 22ba3e9cc014d14419e90187945ecbbd, type: 3}
     - target: {fileID: 5941448208036224335, guid: 1ac3846ffa16c8348a6315a2e5455ba1, type: 3}
       propertyPath: maxBulletCount
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8950017439701660794, guid: 1ac3846ffa16c8348a6315a2e5455ba1, type: 3}
       propertyPath: keys.Array.size

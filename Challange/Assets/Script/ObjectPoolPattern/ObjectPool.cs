@@ -10,10 +10,17 @@ public class ObjectPool<T> where T : IPoolable
 
     public T RequestObject(Vector2 _pos)
     {
-        T curPool = inactivePool[0];
-        ActivateItem(curPool);
-        curPool.SetPosition(_pos);
-        return curPool;
+        if (inactivePool.Count <= 0)
+        {
+            return default (T);
+        } 
+        else
+        {
+			T curPool = inactivePool[0];
+			ActivateItem(curPool);
+			curPool.SetPosition(_pos);
+			return curPool;
+		}
     }
 
     public void ActivateItem(T item)
